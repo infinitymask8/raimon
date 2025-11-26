@@ -546,6 +546,7 @@ const Chat = () => {
                 iconProps={{ iconName: 'Add' }}
                 onClick={newChat}
                 aria-label="Nuevo chat"
+                text="Nuevo chat"
               />
               <CommandBarButton
                 role="button"
@@ -556,6 +557,7 @@ const Chat = () => {
                 iconProps={{ iconName: 'Broom' }}
                 onClick={clearChat}
                 aria-label="Limpiar chat"
+                text="Limpiar chat"
               />
               <Dialog
                 hidden={hideErrorDialog}
