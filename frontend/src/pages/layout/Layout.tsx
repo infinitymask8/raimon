@@ -4,7 +4,7 @@ import { Dialog, Stack, TextField } from '@fluentui/react'
 import { CopyRegular } from '@fluentui/react-icons'
 
 import { CosmosDBStatus } from '../../api'
-import Contoso from '../../assets/Contoso.svg'
+import Contoso from '../../assets/Contoso.svg' // Fallback por defecto
 import { HistoryButton, ShareButton } from '../../components/common/Button'
 import { AppStateContext } from '../../state/AppProvider'
 
@@ -13,10 +13,10 @@ import styles from './Layout.module.css'
 const Layout = () => {
   const [isSharePanelOpen, setIsSharePanelOpen] = useState<boolean>(false)
   const [copyClicked, setCopyClicked] = useState<boolean>(false)
-  const [copyText, setCopyText] = useState<string>('Copy URL')
-  const [shareLabel, setShareLabel] = useState<string | undefined>('Share')
-  const [hideHistoryLabel, setHideHistoryLabel] = useState<string>('Hide chat history')
-  const [showHistoryLabel, setShowHistoryLabel] = useState<string>('Show chat history')
+  const [copyText, setCopyText] = useState<string>('Copiar URL')
+  const [shareLabel, setShareLabel] = useState<string | undefined>('Compartir')
+  const [hideHistoryLabel, setHideHistoryLabel] = useState<string>('Ocultar historial')
+  const [showHistoryLabel, setShowHistoryLabel] = useState<string>('Mostrar historial')
   const [logo, setLogo] = useState('')
   const appStateContext = useContext(AppStateContext)
   const ui = appStateContext?.state.frontendSettings?.ui
@@ -28,7 +28,7 @@ const Layout = () => {
   const handleSharePanelDismiss = () => {
     setIsSharePanelOpen(false)
     setCopyClicked(false)
-    setCopyText('Copy URL')
+    setCopyText('Copiar URL')
   }
 
   const handleCopyClick = () => {
@@ -40,6 +40,7 @@ const Layout = () => {
     appStateContext?.dispatch({ type: 'TOGGLE_CHAT_HISTORY' })
   }
 
+  // Configuración del Logo del Header desde Variables de Entorno
   useEffect(() => {
     if (!appStateContext?.state.isLoading) {
       setLogo(ui?.logo || Contoso)
@@ -48,7 +49,7 @@ const Layout = () => {
 
   useEffect(() => {
     if (copyClicked) {
-      setCopyText('Copied URL')
+      setCopyText('URL copiada')
     }
   }, [copyClicked])
 
@@ -58,12 +59,12 @@ const Layout = () => {
     const handleResize = () => {
       if (window.innerWidth < 480) {
         setShareLabel(undefined)
-        setHideHistoryLabel('Hide history')
-        setShowHistoryLabel('Show history')
+        setHideHistoryLabel('Ocultar')
+        setShowHistoryLabel('Mostrar')
       } else {
-        setShareLabel('Share')
-        setHideHistoryLabel('Hide chat history')
-        setShowHistoryLabel('Show chat history')
+        setShareLabel('Compartir')
+        setHideHistoryLabel('Ocultar historial')
+        setShowHistoryLabel('Mostrar historial')
       }
     }
 
@@ -80,7 +81,8 @@ const Layout = () => {
           <Stack horizontal verticalAlign="center">
             <img src={logo} className={styles.headerIcon} aria-hidden="true" alt="" />
             <Link to="/" className={styles.headerTitleContainer}>
-              <h1 className={styles.headerTitle}>{ui?.title}</h1>
+              {/* Título Dinámico desde Variable de Entorno */}
+              <h1 className={styles.headerTitle}>{ui?.title || 'Knowledge Management'}</h1>
             </Link>
           </Stack>
           <Stack horizontal tokens={{ childrenGap: 4 }} className={styles.shareButtonContainer}>
@@ -115,7 +117,7 @@ const Layout = () => {
           ]
         }}
         dialogContentProps={{
-          title: 'Share the web app',
+          title: 'Compartir la aplicación',
           showCloseButton: true
         }}>
         <Stack horizontal verticalAlign="center" style={{ gap: '8px' }}>

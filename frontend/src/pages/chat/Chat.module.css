@@ -20,7 +20,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: radial-gradient(108.78% 108.78% at 50.02% 19.78%, #ffffff 57.29%, #eef6fe 100%);
+  /* Fondo degradado estilo Güntner */
+  background: radial-gradient(108.78% 108.78% at 50.02% 19.78%, #ffffff 57.29%, rgba(108, 153, 212, 0.66) 100%);
   box-shadow:
     0px 2px 4px rgba(0, 0, 0, 0.14),
     0px 0px 2px rgba(0, 0, 0, 0.12);
@@ -62,7 +63,7 @@
 }
 
 .chatIcon {
-  height: 62px;
+  height: 186px;
   width: auto;
 }
 
@@ -148,38 +149,44 @@
   max-width: 1028px;
   margin-bottom: 50px;
   margin-top: 8px;
+  display: flex;
+  gap: 10px;
 }
 
-.clearChatBroom {
+/* ========================================== */
+/* INICIO DE CORRECCIÓN DE BOTONES (ICONOS)   */
+/* ========================================== */
+
+.clearChatBroom, .clearChatBroomNoCosmos {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 7px;
-  top: 13px;
+  
+  /* CAMBIOS CLAVE: Ancho automático y mínimo */
+  width: auto !important; 
+  min-width: 140px;       
+  height: 32px;
+  padding: 0 16px !important;
+  
+  /* Posición: Esquina superior izquierda del contenedor del input */
+  left: 24px;
+  top: 20px;
+  
   color: #ffffff;
   border-radius: 4px;
   z-index: 1;
+  white-space: nowrap; /* Evita que el texto se parta */
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .clearChatBroomNoCosmos {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 7px;
-  top: 66px;
-  color: #ffffff;
-  border-radius: 4px;
-  z-index: 1;
+  /* Si no hay cosmos, ajustamos posición si es necesario, 
+     o lo dejamos igual para consistencia */
+  top: 20px; 
 }
 
 .newChatIcon {
@@ -189,14 +196,29 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 7px;
-  top: 66px;
+  
+  /* CAMBIOS CLAVE: Ancho automático y mínimo */
+  width: auto !important;
+  min-width: 140px;
+  height: 32px;
+  padding: 0 16px !important;
+  
+  /* Posición: A la derecha del botón "Limpiar" */
+  /* 24px (margen izq) + 140px (botón limpiar) + 10px (espacio) = 174px */
+  left: 174px; 
+  top: 20px;
+  
   color: #ffffff;
   border-radius: 4px;
   z-index: 1;
+  white-space: nowrap; /* Evita que el texto se parta */
+  font-size: 14px;
+  font-weight: 600;
 }
+
+/* ========================================== */
+/* FIN DE CORRECCIÓN DE BOTONES               */
+/* ========================================== */
 
 .stopGeneratingContainer {
   box-sizing: border-box;
@@ -376,16 +398,24 @@ a {
     max-width: 90%;
   }
 
+  /* Ajustes para móviles: botones apilados y ancho completo */
   .newChatIcon {
     left: 0px;
+    position: relative;
+    width: 100% !important;
+    margin-bottom: 10px;
   }
 
   .clearChatBroom {
     left: 0px;
+    position: relative;
+    width: 100% !important;
   }
 
   .clearChatBroomNoCosmos {
     left: 0px;
+    position: relative;
+    width: 100% !important;
   }
 
   .chatEmptyStateTitle {
